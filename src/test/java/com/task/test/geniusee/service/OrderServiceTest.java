@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.task.test.geniusee.criterial.SearchCriteria;
 import com.task.test.geniusee.dto.OrderDto;
 import com.task.test.geniusee.entity.Order;
 import com.task.test.geniusee.mapper.OrderMapper;
@@ -61,7 +62,7 @@ public class OrderServiceTest {
     Page<Order> page = new PageImpl<>(orders);
     when(orderRepository.findAll(pageable))
         .thenReturn(page);
-    List<OrderDto> result = orderService.findAll(0, 2);
+    List<OrderDto> result = orderService.findAll(new SearchCriteria(),0, 2);
 
     assertEquals(result.size(), orders.size());
   }

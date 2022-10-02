@@ -4,6 +4,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
+import com.task.test.geniusee.criterial.SearchCriteria;
 import com.task.test.geniusee.dto.MovieDto;
 import com.task.test.geniusee.entity.Movie;
 import com.task.test.geniusee.entity.Order;
@@ -76,7 +77,7 @@ public class MovieServiceTest {
     Page<Movie> page = new PageImpl<>(movies);
     when(movieRepository.findAll(pageable))
         .thenReturn(page);
-    List<MovieDto> result = movieService.findAll(0, 2);
+    List<MovieDto> result = movieService.findAll(new SearchCriteria(),0, 2);
 
     assertEquals(result.size(), movies.size());
 
