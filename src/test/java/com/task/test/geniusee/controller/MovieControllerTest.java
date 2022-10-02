@@ -34,35 +34,35 @@ public class MovieControllerTest {
 
   @Test
   void shouldReturnListOfMovies() throws Exception {
-    mockMvc.perform(get("/movies")
+    mockMvc.perform(get("/api/movies")
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
 
   @Test
   void shouldReturnListOfMoviesByOrderId() throws Exception {
-    mockMvc.perform(get("/movies/{orderId}", 1L)
+    mockMvc.perform(get("/api/movies/{orderId}", 1L)
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
 
   @Test
   void shouldReturnMovieByID() throws Exception {
-    mockMvc.perform(get("/movie/{id}", 1L)
+    mockMvc.perform(get("/api/movie/{id}", 1L)
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
 
   @Test
   void shouldRemoveByGivenId() throws Exception {
-    mockMvc.perform(delete("/movie/{id}", 1L)
+    mockMvc.perform(delete("/api/movie/{id}", 1L)
             .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
   }
 
   @Test
   void shouldReturnCreatedMovie() throws Exception {
-    mockMvc.perform(post("/movie")
+    mockMvc.perform(post("/api/movie")
         .content(this.asJsonMovie())
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
@@ -70,7 +70,7 @@ public class MovieControllerTest {
 
   @Test
   void shouldReturnUpdatedMovie() throws Exception {
-    mockMvc.perform(put("/movie")
+    mockMvc.perform(put("/api/movie")
             .content(this.asJsonMovie())
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
