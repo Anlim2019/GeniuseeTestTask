@@ -1,5 +1,6 @@
 package com.task.test.geniusee.rest;
 
+import com.task.test.geniusee.criterial.SearchCriteria;
 import com.task.test.geniusee.dto.MovieDto;
 import com.task.test.geniusee.dto.OrderDto;
 import com.task.test.geniusee.entity.Order;
@@ -29,9 +30,10 @@ public class OrderController {
   }
 
   @GetMapping("/orders")
-  public ResponseEntity<List<OrderDto>> getAll(@RequestParam(defaultValue = "0") Integer page,
-                                             @RequestParam(defaultValue = "3") Integer size) {
-    return ResponseEntity.ok(this.orderService.findAll(page, size));
+  public ResponseEntity<List<OrderDto>> getAll(SearchCriteria searchCriteria,
+                                               @RequestParam(defaultValue = "0") Integer page,
+                                               @RequestParam(defaultValue = "3") Integer size) {
+    return ResponseEntity.ok(this.orderService.findAll(searchCriteria, page, size));
   }
 
   @PostMapping("/order")
