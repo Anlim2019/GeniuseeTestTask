@@ -2,13 +2,13 @@ package com.task.test.geniusee.service;
 
 import static java.lang.String.format;
 
-import com.task.test.geniusee.dto.MovieDto;
+import com.task.test.geniusee.criterial.SearchCriteria;
 import com.task.test.geniusee.dto.OrderDto;
-import com.task.test.geniusee.entity.Movie;
 import com.task.test.geniusee.entity.Order;
 import com.task.test.geniusee.mapper.OrderMapper;
-import com.task.test.geniusee.repository.MovieRepository;
 import com.task.test.geniusee.repository.OrderRepository;
+import com.task.test.geniusee.repository.MovieSpecification;
+import com.task.test.geniusee.repository.OrderSpecification;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class OrderService {
   private final OrderRepository orderRepository;
   private final OrderMapper orderMapper;
+  private final OrderSpecification orderSpecification;
 
   public OrderDto findById(final Long id) {
     Order order = this.orderRepository.findById(id)
@@ -29,9 +30,10 @@ public class OrderService {
     return this.orderMapper.toDto(order);
   }
 
-  public List<OrderDto> findAll(Integer page, Integer size) {
+  public List<OrderDto> findAll(SearchCriteria searchCriteria, Integer page, Integer size) {
     Pageable paging = PageRequest.of(page, size);
-    return this.orderRepository.findAll(paging).stream()
+    return this.orderRepository.findAll(orderSpecification.getSpecification(searchCriteria), paging)
+        .stream()
         .map(this.orderMapper::toDto).collect(Collectors.toList());
   }
 
