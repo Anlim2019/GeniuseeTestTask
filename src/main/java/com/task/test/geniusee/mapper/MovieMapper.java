@@ -10,6 +10,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public abstract class MovieMapper {
 
+  @Mapping(target = "order.id", source = "orderId")
   public abstract Movie toEntity(MovieDto dto);
 
   @Mapping(target = "orderId", source = "order.id")
